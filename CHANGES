@@ -1,3 +1,50 @@
+Version 3.10
+---------------------
+10/07/16: beazley
+          Fixed Issue #101: Incorrect shift-reduce conflict resolution with
+          precedence specifier.
+
+          PLY was incorrectly resolving shift-reduce conflicts in certain
+          cases.  For example, in the example/calc/calc.py example, you 
+          could trigger it doing this:
+
+          calc > -3 - 4            
+          1                         (correct answer should be -7)
+          calc >
+
+          Issue and suggested patch contributed by https://github.com/RomaVis
+           
+Version 3.9
+---------------------
+08/30/16: beazley
+          Exposed the parser state number as the parser.state attribute
+          in productions and error functions. For example:
+
+          def p_somerule(p):
+              '''
+              rule : A B C
+              '''
+              print('State:', p.parser.state)
+
+          May address issue #65 (publish current state in error callback).
+
+08/30/16: beazley 
+          Fixed Issue #88. Python3 compatibility with ply/cpp.
+
+08/30/16: beazley
+          Fixed Issue #93. Ply can crash if SyntaxError is raised inside
+          a production.   Not actually sure if the original implementation
+          worked as documented at all.  Yacc has been modified to follow
+          the spec as outlined in the CHANGES noted for 11/27/07 below.
+
+08/30/16: beazley
+          Fixed Issue #97. Failure with code validation when the original
+          source files aren't present.   Validation step now ignores
+          the missing file.
+
+08/30/16: beazley
+          Minor fixes to version numbers.
+
 Version 3.8
 ---------------------
 10/02/15: beazley
