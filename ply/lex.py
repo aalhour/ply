@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # ply: lex.py
 #
-# Copyright (C) 2001-2017
+# Copyright (C) 2001-2018
 # David M. Beazley (Dabeaz LLC)
 # All rights reserved.
 #
@@ -179,12 +179,12 @@ class Lexer:
         with open(filename, 'w') as tf:
             tf.write('# %s.py. This file automatically created by PLY (version %s). Don\'t edit!\n' % (basetabmodule, __version__))
             tf.write('_tabversion   = %s\n' % repr(__tabversion__))
-            tf.write('_lextokens    = set(%s)\n' % repr(tuple(self.lextokens)))
-            tf.write('_lexreflags   = %s\n' % repr(self.lexreflags))
+            tf.write('_lextokens    = set(%s)\n' % repr(tuple(sorted(self.lextokens))))
+            tf.write('_lexreflags   = %s\n' % repr(int(self.lexreflags)))
             tf.write('_lexliterals  = %s\n' % repr(self.lexliterals))
             tf.write('_lexstateinfo = %s\n' % repr(self.lexstateinfo))
 
-            # Rewrite the lexstatere table, replacing function objects with function names 
+            # Rewrite the lexstatere table, replacing function objects with function names
             tabre = {}
             for statename, lre in self.lexstatere.items():
                 titem = []
@@ -535,7 +535,7 @@ def _statetoken(s, names):
     for i, part in enumerate(parts[1:], 1):
         if part not in names and part != 'ANY':
             break
-    
+
     if i > 1:
         states = tuple(parts[1:i])
     else:
@@ -1096,4 +1096,3 @@ def TOKEN(r):
 
 # Alternative spelling of the TOKEN decorator
 Token = TOKEN
-

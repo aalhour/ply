@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # ply: yacc.py
 #
-# Copyright (C) 2001-2017
+# Copyright (C) 2001-2018
 # David M. Beazley (Dabeaz LLC)
 # All rights reserved.
 #
@@ -266,6 +266,9 @@ class YaccProduction:
 
     def lexpos(self, n):
         return getattr(self.slice[n], 'lexpos', 0)
+
+    def set_lexpos(self, n, lexpos):
+        self.slice[n].lexpos = lexpos
 
     def lexspan(self, n):
         startpos = getattr(self.slice[n], 'lexpos', 0)
